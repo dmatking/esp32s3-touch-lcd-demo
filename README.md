@@ -6,9 +6,9 @@ This builds with VS Code using the Espressif ESP-IDF extension with parameters b
 
 - ESP-IDF: 5.5.1
 - Target: esp32s3
-- Flash size/mode/freq: 16MB / DIO / 80MHz
+- Flash size/mode/freq: 16MB / DIO / 80MHz  - Set these in menuconfig
 - Partition: single factory (large) 
-- Build:
+- Build in ESP-IDF terminal, replace COMXX with your COM port:
   ```sh
   idf.py set-target esp32s3
   idf.py defconfig
