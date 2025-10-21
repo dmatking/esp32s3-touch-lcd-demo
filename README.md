@@ -3,7 +3,7 @@
 - ESP-IDF: 5.5.1
 - Target: esp32s3
 - Flash size/mode/freq: 16MB / DIO / 80MHz
-- Partition: single factory (large) or `partitions.csv`
+- Partition: single factory (large) 
 - Build:
   ```sh
   idf.py set-target esp32s3
