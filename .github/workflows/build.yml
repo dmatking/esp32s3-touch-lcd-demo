@@ -1,0 +1,44 @@
+name: Build (ESP32-S3)
+
+on:
+  push:
+    branches: [ main, 'feature/**' ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (with LFS)
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Python (IDF uses it)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build with ESP-IDF
+        uses: espressif/esp-idf-ci-action@v1
+        with:
+          esp_idf_version: v5.5.1
+          target: esp32s3
+          path: .
+          # Build exactly like you do locally
+          command: |
+            idf.py set-target esp32s3
+            idf.py defconfig
+            idf.py build
+
+      - name: Upload firmware artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-${{ github.sha }}
+          path: |
+            build/bootloader/bootloader.bin
+            build/partition_table/partition-table.bin
+            build/*.bin
+            build/*.elf
+            build/*.map
